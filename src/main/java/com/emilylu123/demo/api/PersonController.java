@@ -2,8 +2,10 @@ package com.emilylu123.demo.api;
 
 import com.emilylu123.demo.model.Person;
 import com.emilylu123.demo.service.PersonService;
+import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ public class PersonController {
 	}
 
 	@PostMapping
-	public void addPerson(@RequestBody Person person){
+	public void addPerson(@Valid @NotNull @RequestBody Person person){
 		personService.addPerson(person);
 	}
 
@@ -39,7 +41,8 @@ public class PersonController {
 	}
 
 	@PutMapping(path="{id}")
-	public void updatePerson(@PathVariable("id") UUID id, @RequestBody Person personToUpdate){
+	public void updatePerson(@PathVariable("id") UUID id,
+						 @Valid @NotNull @RequestBody Person personToUpdate){
 		personService.updatePerson(id, personToUpdate);
 	}
 
